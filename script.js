@@ -1,24 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialisation EmailJS
     emailjs.init("8tHYFvOg1n1v5XadZ"); 
 
     const togglePassword = document.getElementById('togglePassword');
     const passInput = document.getElementById('passInput');
-
-    togglePassword.addEventListener('click', () => {
-
-    const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passInput.setAttribute('type', type);
-    
-    togglePassword.textContent = type === 'password' ? '🐵' : '🙈';
-});
-
-    // Éléments du Login (toujours présents dans le HTML)
     const loginScreen = document.getElementById('login-screen');
     const btnLogin = document.getElementById('btnLogin');
     const mainContent = document.getElementById('main');
 
-    // --- 1. LOGIQUE DE SÉCURITÉ (HASH) ---
+    togglePassword.addEventListener('click', () => {
+        const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passInput.setAttribute('type', type);
+        togglePassword.textContent = type === 'password' ? '🐵' : '🙈';
+    });
+
     async function hashText(text) {
         const msgUint8 = new TextEncoder().encode(text);
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
@@ -26,22 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    
-
     async function verifier() {
         const hashCorrect = "1a2d751ce54b57ad036f22ada91fb43b32aac8c7f6031b135535091f484f1d1e";
         const hashTape = await hashText(passInput.value);
 
         if (hashTape === hashCorrect) {
-            // ÉTAPE 1: Injecter le contenu HTML
             injecterContenu();
-            // ÉTAPE 2: Activer la logique JS pour les nouveaux boutons
             initialiserLogiqueQuestionnaire();
-            
             loginScreen.style.display = 'none';
             mainContent.style.display = 'block';
         } else {
-            alert("Mot de passe incorrect");
+            alert("Mot de passe incorrect... 💀");
             passInput.value = "";
         }
     }
@@ -49,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLogin.addEventListener('click', verifier);
     passInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifier(); });
 
-    // --- 2. INJECTION DU CONTENU ---
     function injecterContenu() {
         const Q1 = document.getElementById('Q1');
         const Q2 = document.getElementById('Q2');
@@ -66,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Q2.innerHTML = `
             <label>Nom</label>
-            <input type="text" id="nom" placeholder="Nom" autocomplete="off">
+            <input type="text" id="nom" placeholder="Nom" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
             <label>Do you want to spider-kiss ?</label>
             <img id="memeKiss" class="imgQ2">
             <div class="yesNo">
@@ -99,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // --- 3. TOUTE LA LOGIQUE DU QUESTIONNAIRE ---
     function initialiserLogiqueQuestionnaire() {
         const btnFormulaire = document.getElementById('formulaire');
         const question1 = document.getElementById('Q1');
@@ -118,16 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
             brickedUp: "Pas encore répondu"
         };
 
-        // Effet Nom Prank
         const phraseNom = "Ta princesse Malorie";
         let indexNom = 0;
-        inputNom.addEventListener('keydown', (e) => {
-            const touchesSpeciales = ['Enter', 'Tab', 'Shift', 'Backspace'];
-            if (touchesSpeciales.includes(e.key)) return;
-            e.preventDefault();
+
+        inputNom.addEventListener('input', (e) => {
+            if (e.inputType === 'deleteContentBackward') {
+                if (indexNom > 0) indexNom--;
+                return;
+            }
             if (indexNom < phraseNom.length) {
-                inputNom.value += phraseNom[indexNom];
+                inputNom.value = phraseNom.substring(0, indexNom + 1);
                 indexNom++;
+            } else {
+                inputNom.value = phraseNom;
             }
         });
 
@@ -149,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             question2.style.display = 'flex';
         });
 
-        // Boutons de choix Q2
         const boutonsChoix = document.querySelectorAll('.btn-choix');
         boutonsChoix.forEach(bouton => {
             bouton.addEventListener('click', () => {
