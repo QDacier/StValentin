@@ -54,35 +54,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
         Q2.innerHTML = `
             <label>Nom</label>
-            <input type="text" id="nom" placeholder="Nom" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <input type="text" id="nom" placeholder="Tape ton nom..." 
+                   autocomplete="off" autocorrect="off" autocapitalize="off" 
+                   spellcheck="false" inputmode="text" enterkeyhint="done">
+            
             <label>Do you want to spider-kiss ?</label>
             <img id="memeKiss" class="imgQ2">
             <div class="yesNo">
                 <button class="btn-choix" data-img="memeKiss" data-src="styles/spiderkissYes.webp">oui</button>
                 <button class="btn-choix" data-img="memeKiss" data-src="styles/spiderkissNo.jpg">non</button>
             </div>
+
             <label>Veux tu qu'on écoute des films d'horreur ensemble ?</label>
             <img id="memeHorreur" class="imgQ2">
             <div class="yesNo">
                 <button class="btn-choix" data-img="memeHorreur" data-src="styles/maniac.gif">oui</button>
                 <button class="btn-choix" data-img="memeHorreur" data-src="styles/noMovie.jfif">non</button>
             </div>
+
             <label>Veux tu faire des lego avec moi ?</label>
             <img id="memeLego" class="imgQ2">
             <div class="yesNo">
                 <button class="btn-choix" data-img="memeLego" data-src="styles/lego.jpg">oui</button>
                 <button class="btn-choix" data-img="memeLego" data-src="styles/legoNo.png">non</button>
             </div>
+
             <label>Are you Bricked up when you see me ?</label>
             <img id="memeBrick" class="imgQ2">
             <div class="yesNo">
                 <button class="btn-choix" data-img="memeBrick" data-src="styles/brick.png">oui</button>
                 <button class="btn-choix" data-img="memeBrick" data-src="styles/brickNo.webp">non</button>
             </div>
-            <p>Pov (Tu me parle mais je suis éblouie par ta beauté) :</p>
+
+            <p>Pov (Tu me parles mais je suis ébloui par ta beauté) :</p>
             <video controls><source src="styles/pov.mp4" type="video/mp4"></video>
-            <label>Petit message minion</label>
-            <textarea id="message" placeholder="Écrit moi ce que tu veux me faire..."></textarea>
+
+            <label>Petit message mignon</label>
+            <textarea id="message" placeholder="Écris-moi ce que tu veux me faire..."></textarea>
             <button id="btnEnvoyer">Envoyer les réponses</button>
         `;
     }
@@ -111,17 +119,14 @@ document.addEventListener('DOMContentLoaded', () => {
         inputNom.addEventListener('input', (e) => {
             if (e.inputType === 'deleteContentBackward') {
                 if (indexNom > 0) indexNom--;
-                return;
-            }
-            if (indexNom < phraseNom.length) {
-                inputNom.value = phraseNom.substring(0, indexNom + 1);
-                indexNom++;
             } else {
-                inputNom.value = phraseNom;
+                if (indexNom < phraseNom.length) {
+                    indexNom++;
+                }
             }
+            inputNom.value = phraseNom.substring(0, indexNom);
         });
 
-        // Navigation Q1
         q1Oui.addEventListener('click', () => {
             btnFormulaire.style.display = "flex";
             q1Img.src = "styles/q1Oui.jpg";
@@ -156,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Envoi EmailJS
         btnEnvoyer.addEventListener('click', () => {
             const params = {
                 nom_affiche: inputNom.value,
