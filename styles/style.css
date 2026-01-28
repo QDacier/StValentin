@@ -1,0 +1,146 @@
+body{
+    background-image: url("bgRepeat.jpg");
+    background-repeat: repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#Q1{
+    display: flex;
+}
+
+#Q2{
+    display: none;
+}
+
+#Q1, #Q2{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+}
+
+.questionnaire{
+    background-color: pink;
+    border: 2px solid white;
+}
+
+button{
+    color: white;
+    background-color: red;
+    border: 2px solid white;
+    font-size: 200%;
+}
+
+#Q1Oui, p, input, label, h1, button{
+    font-family: 'Dancing Script', cursive;
+}
+
+p, input, label{
+    font-size: 200%;
+}
+
+#message{
+    font-size: 1.2rem;
+    width: 80%;
+    resize: vertical;
+}
+
+#Q1Non{
+    font-family: 'UnifrakturMaguntia', cursive;
+    color: red;
+    background-color: black;
+    border: 2px solid white;
+}
+
+#login-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #ffc2d1; /* Rose doux */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.login-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+
+.login-card button {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.password-container {
+    position: relative;
+    width: 80%;
+    margin: 15px auto;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #ff4d6d;
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#togglePassword {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.2rem;
+}
+
+/* -------------------------------- Ordi -------------------------------- */
+@media (min-width: 1601px) {
+    img{
+        width: 50%;
+    }
+
+    video{
+        width: 50%;
+    }
+}
+/* ------------------------------ Portables ------------------------------ */
+@media (min-width: 601px) and (max-width: 1600px) {
+    img{
+        width: 50%;
+    }
+
+    video{
+        width: 50%;
+    }
+}
+/* -------------------------------- Cell -------------------------------- */
+@media (max-width: 600px) {
+    img{
+        width: 80%;
+    }
+
+    video{
+        width: 80%;
+    }
+}
